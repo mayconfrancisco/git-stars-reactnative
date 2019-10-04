@@ -21,19 +21,34 @@ export default class User extends Component {
   state = {
     stars: [],
     loading: true,
+    pageStarred: 1,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.loadStars();
+  }
+
+  componentDidUpdate(_, prevState) {
+    const { pageStarred } = this.state;
+    if (prevState.pageStarred !== pageStarred) {
+      this.loadStars();
+    }
+  }
+
+  async loadStars() {
+    const { stars, pageStarred } = this.state;
     const { navigation } = this.props;
     const user = navigation.getParam('user');
 
-    const { data } = await api.get(`/users/${user.login}/starred`);
+    const { data } = await api.get(`/users/${user.login}/starred`, {
+      params: { page: pageStarred },
+    });
 
-    this.setState({ stars: data, loading: false });
+    this.setState({ stars: [...stars, ...data], loading: false });
   }
 
   render() {
-    const { stars, loading } = this.state;
+    const { stars, loading, pageStarred } = this.state;
     const { navigation } = this.props;
     const user = navigation.getParam('user');
 
@@ -60,6 +75,9 @@ export default class User extends Component {
                 </Info>
               </Starred>
             )}
+            // carrega mais registros ao chegar a 20% do final da lista
+            onEndReachedThreshold={0.2}
+            onEndReached={() => this.setState({ pageStarred: pageStarred + 1 })}
           />
         )}
       </Container>
