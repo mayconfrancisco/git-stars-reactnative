@@ -8,6 +8,7 @@ export const Container = styled.View`
 export const Header = styled.View`
   align-items: center;
   padding-bottom: 20px;
+  margin-bottom: 20px;
   border-bottom-width: 1px;
   border-color: #eee;
 `;
