@@ -60,3 +60,5 @@ IOS acesse a pasta ios e rode o pod install
 ANDROID só rodar novamente react-native run-android
 
 yarn add prop-types
+
+yarn add react-native-webview

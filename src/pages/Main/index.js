@@ -69,7 +69,6 @@ export default class Main extends Component {
     // Todas as telas que estao no createStackNavigator tem injetado o navigation
     const { navigation } = this.props;
 
-    console.log('navigation', user);
     navigation.navigate('User', { user });
   };
 
