@@ -78,6 +78,9 @@ export default class User extends Component {
             // carrega mais registros ao chegar a 20% do final da lista
             onEndReachedThreshold={0.2}
             onEndReached={() => this.setState({ pageStarred: pageStarred + 1 })}
+            // reacrrega a lista ao arrastar para cima
+            onRefresh={() => this.setState({ stars: [], pageStarred: 1 })}
+            refreshing={loading}
           />
         )}
       </Container>
